@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         return RespResult.argumentNotValid(stringBuilder.toString());
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
     public RespResult handleConstraintViolationException(ConstraintViolationException exception) {
         Set<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();

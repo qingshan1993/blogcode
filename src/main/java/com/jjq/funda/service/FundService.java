@@ -1,5 +1,7 @@
 package com.jjq.funda.service;
 
+import com.jjq.funda.dto.AddOrUpdateFundDTO;
+
 /**
  * @author jjq
  * @version 1.0
@@ -18,6 +20,17 @@ public class FundService {
         //构造实体类
 
         //入库
+    }
+
+    /**
+     * 更新或者新增基金列表
+     * @param addOrUpdateFundDTO
+     * @return
+     */
+    public Boolean addOrUpdateFunds(AddOrUpdateFundDTO addOrUpdateFundDTO) {
+
+        return false;
+
     }
 
 

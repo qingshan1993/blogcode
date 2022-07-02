@@ -15,6 +15,8 @@
 	<description>fund-assistant</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<knife4j-spring-boot-starter.version>2.0.9</knife4j-spring-boot-starter.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -33,6 +35,16 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${springfox-swagger2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.xiaoymin</groupId>
+			<artifactId>knife4j-spring-boot-starter</artifactId>
+			<version>${knife4j-spring-boot-starter.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>

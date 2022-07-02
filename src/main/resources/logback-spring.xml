@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+    <!--定义日志文件的存储地址，后面通过${LOG_HOME}获取，勿在 LogBack 的配置中使用相对路径，存在疑问？ 我这里使用相对地址就是当前目录下 -->
+    <property name="LOG_HOME" value="/logs" />
+    <!-- 可选：定义文件名称 -->
+    <property name="PROJECT_NAME" value="funda" />
+    <!-- appender 必选节点。作用：日志输出目的地， 配置后由 root 标签进行选择控制是否输出到目的地 -->
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 日志格式化 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- appender 必选节点。作用：日志输出目的地， 配置后由 root 标签进行选择控制是否输出到目的地 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- rollingPolicy 日志生成策略，不同的策略不同的类。 特别注意：尺寸切割和时间切割的日志类SizeAndTimeBasedRollingPolicy -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->    <!-- 按照每天生成日志文件 -->
+            <FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/${PROJECT_NAME}.%d{yyyy-MM-dd}.error.%i.log</FileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>15</MaxHistory>
+            <!-- 每个日志文件大小，单位 kb、MB 等，这个功能控制不稳定，因为打印日志速度太快，每个文件会变大。 -->
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <!-- encoder 日志格式化 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印ERROR日志 -->
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- appender 必选节点。作用：日志输出目的地， 配置后由 root 标签进行选择控制是否输出到目的地 -->
+    <appender name="FILE_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- rollingPolicy 日志生成策略，不同的策略不同的类。 特别注意：尺寸切割和时间切割的日志类SizeAndTimeBasedRollingPolicy -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->    <!-- 按照每天生成日志文件 -->
+            <FileNamePattern>${LOG_HOME}/${PROJECT_NAME}/${PROJECT_NAME}.%d{yyyy-MM-dd}.info.%i.log</FileNamePattern>
+            <!--日志文件保留天数 -->
+            <MaxHistory>15</MaxHistory>
+            <!-- 每个日志文件大小，单位 kb、MB 等，这个功能控制不稳定，因为打印日志速度太快，每个文件会变大。 -->
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <!-- encoder 日志格式化 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- root必选节点：1.基础的日志输出级别配置，2.控制那些appender输出 -->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE_ERROR" />
+        <appender-ref ref="FILE_INFO" />
+    </root>
+    <!-- logger可选节点：单独配置某个"包"或者"某个类"下面的日志等级。 不受 root 影响-->
+    <logger name="org.hibernate.SQL">
+        <level value="trace" />
+        <!-- <appender-ref ref="STDOUT" />-->
+        <!--        <appender-ref ref="FILE" />-->
+    </logger>
+    <logger name="org.hibernate.type.descriptor.sql.BasicBinder">
+        <level value="trace" />
+        <!--<appender-ref ref="STDOUT" />-->
+        <!--        <appender-ref ref="FILE" />-->
+    </logger>
+</configuration>

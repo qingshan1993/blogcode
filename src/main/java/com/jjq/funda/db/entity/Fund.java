@@ -24,7 +24,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "fund")
-public class Fund {
+public class Fund extends BaseEntity {
 
     /**
      * 主键id
@@ -52,11 +52,6 @@ public class Fund {
      * 基金成立世界
      */
     private LocalDate establishTime;
-
-    /**
-     * 数据创建时间
-     */
-    private LocalDateTime createTime;
 
     @Override
     public String toString() {

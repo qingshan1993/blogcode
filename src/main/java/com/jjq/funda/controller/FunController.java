@@ -1,5 +1,6 @@
 package com.jjq.funda.controller;
 
+import com.jjq.funda.model.RespResult;
 import org.springframework.validation.annotation.Validated;
 
 /**
@@ -10,4 +11,13 @@ import org.springframework.validation.annotation.Validated;
  */
 @Validated
 public class FunController {
+
+
+
+    public RespResult<Boolean> addFunds() {
+
+        return RespResult.success(true);
+
+    }
+
 }
