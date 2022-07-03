@@ -2,13 +2,16 @@ package com.jjq.funda.model;
 
 import org.springframework.http.HttpStatus;
 
+import java.io.Serializable;
+
 /**
  * @author  qingshan1993
  * @date  2022/7/2
  * @version 1.0
- * @desc todo
+ * @desc
  */
-public class RespResult<T> {
+public class RespResult<T> implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int code;
 
@@ -45,6 +48,30 @@ public class RespResult<T> {
     public RespResult(int code, String message, T data) {
         this.code = code;
         this.message = message;
+        this.data = data;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
         this.data = data;
     }
 }
