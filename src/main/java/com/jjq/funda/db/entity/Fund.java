@@ -51,7 +51,7 @@ public class Fund extends BaseEntity {
     /**
      * 基金成立世界
      */
-    private LocalDate establishTime;
+    private LocalDate establishDate;
 
     @Override
     public String toString() {

@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author  qingshan1993
  * @date  2022/7/2
  * @version 1.0
- * @desc
+ * @desc 统一返回实体包装类
  */
 public class RespResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;

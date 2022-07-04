@@ -24,7 +24,7 @@ public class BeanUtilsTest {
         fund.setFundName("招商中证白酒");
         //fund.setXixi(new Date());
         fund.setId(1);
-        fund.setEstablishTime(LocalDateTime.now().toLocalDate());
+        fund.setEstablishDate(LocalDateTime.now().toLocalDate());
         OtherFund otherFund = BeanUtils.copyBean(fund, OtherFund.class);
         System.out.println(JsonUtils.toJsonString(otherFund));
 
@@ -38,14 +38,14 @@ public class BeanUtilsTest {
         fund.setFundName("招商中证白酒");
         //fund.setXixi(new Date());
         fund.setId(1);
-        fund.setEstablishTime(LocalDateTime.now().toLocalDate());
+        fund.setEstablishDate(LocalDateTime.now().toLocalDate());
 
         Fund fund1 = new Fund();
         fund1.setFundCode("012415");
         fund1.setFundName("招商中证白酒");
         //fund1.setXixi(new Date());
         fund1.setId(2);
-        fund1.setEstablishTime(LocalDateTime.now().toLocalDate());
+        fund1.setEstablishDate(LocalDateTime.now().toLocalDate());
 
         List<Fund> res = ListUtils.newArrayList(fund, fund1);
 
@@ -60,7 +60,7 @@ public class BeanUtilsTest {
             fund.setFundCode("012414");
             fund.setFundName("招商中证白酒");
             fund.setId(1);
-            fund.setEstablishTime(LocalDateTime.now().toLocalDate());
+            fund.setEstablishDate(LocalDateTime.now().toLocalDate());
             OtherFund otherFund = BeanUtils.toBean(fund, OtherFund.class);
             //System.out.println(JsonUtils.toJsonString(otherFund));
         }
@@ -72,7 +72,7 @@ public class BeanUtilsTest {
             fund.setFundCode("012414");
             fund.setFundName("招商中证白酒");
             fund.setId(1);
-            fund.setEstablishTime(LocalDateTime.now().toLocalDate());
+            fund.setEstablishDate(LocalDateTime.now().toLocalDate());
             OtherFund otherFund = new OtherFund();
             org.springframework.beans.BeanUtils.copyProperties(fund, otherFund, OtherFund.class);
             //System.out.println(JsonUtils.toJsonString(otherFund));

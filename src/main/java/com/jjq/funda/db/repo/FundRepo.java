@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
  * @description: fund的repository
  * @version:
  */
-//@Repository
-public interface FundRepo // extends JpaRepository<Fund, Integer>
+@Repository
+public interface FundRepo  extends JpaRepository<Fund, Integer>
 {
 
 }
