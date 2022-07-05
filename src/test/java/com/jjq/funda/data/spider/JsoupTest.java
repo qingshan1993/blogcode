@@ -1,4 +1,4 @@
-package com.jjq.funda.datacenter.spider;
+package com.jjq.funda.data.spider;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

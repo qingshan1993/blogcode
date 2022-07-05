@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
  * @version:
  */
 @Repository
-public interface FundRepo  extends JpaRepository<Fund, Integer>
-{
+public interface FundRepo  extends JpaRepository<Fund, Integer> {
 
 }
 
