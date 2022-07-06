@@ -44,6 +44,11 @@ public class Fund extends BaseEntity {
     private String fundName;
 
     /**
+     * 基金经理名称
+     */
+    private String manager;
+
+    /**
      * 基金状态
      */
     private String status;

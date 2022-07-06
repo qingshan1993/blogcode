@@ -10,7 +10,7 @@ import com.jjq.funda.dto.AddOrUpdateFundDTO;
  */
 public class FundService {
 
-    public void spiderAndSaveFundInfo() {
+    public void taskSave() {
         //查询FundService表,查询需要更新的基金
 
         //获取html
