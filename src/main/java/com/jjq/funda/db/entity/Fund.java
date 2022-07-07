@@ -2,6 +2,7 @@ package com.jjq.funda.db.entity;
 
 import com.jjq.funda.util.JsonUtils;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,12 +47,17 @@ public class Fund extends BaseEntity {
     /**
      * 基金名称拼音首字母简写形式
      */
-    private String simple_pinyin;
+    private String simplePinyin;
 
     /**
      * 基金名称全拼
      */
     private String pinyin;
+
+    /**
+     * 基金类型
+     */
+    private String fundType;
 
     /**
      * 基金经理名称

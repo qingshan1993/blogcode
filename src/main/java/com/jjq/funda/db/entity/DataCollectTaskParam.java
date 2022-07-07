@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -21,8 +20,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "data_collect_task")
-public class DataCollectTask {
+@Entity(name = "data_collect_task_param")
+public class DataCollectTaskParam {
 
     /**
      * 主键id
@@ -34,23 +33,17 @@ public class DataCollectTask {
     /**
      * 任务名称
      */
-    private String taskName;
+    private String taskId;
 
     /**
      * 任务类型
      */
-    private String taskType;
+    private String paramName;
 
     /**
      * 任务状态
      */
-    private String taskStatus;
-
-
-    /**
-     * 任务执行的时间
-     */
-    private LocalDateTime exeTime;
+    private String paramValue;
 
 
 }

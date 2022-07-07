@@ -20,20 +20,20 @@ public class BaseEntity {
     /**
      * 数据创建时间
      */
-    private Long creatorId;
+    protected Long creatorId;
 
     /**
      * 数据创建时间
      */
-    private LocalDateTime createTime;
+    protected LocalDateTime createTime;
 
     /**
      * 更新人ID
      */
-    private Long updaterId;
+    protected Long updaterId;
 
     /**
      * 更新人ID
      */
-    private LocalDateTime updateTime;
+    protected LocalDateTime updateTime;
 }
