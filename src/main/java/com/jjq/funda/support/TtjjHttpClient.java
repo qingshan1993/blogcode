@@ -19,10 +19,5 @@ public class TtjjHttpClient extends HttpClient {
         super(restTemplate);
     }
 
-    @Override
-    protected HttpHeaders buildHttpHeaders() {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("Authorization", "APPCODE e03569fcca3845c2ba3731f740aa6d49");
-        return httpHeaders;
-    }
+
 }
