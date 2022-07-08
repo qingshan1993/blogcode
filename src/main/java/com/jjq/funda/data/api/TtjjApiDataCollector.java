@@ -80,6 +80,7 @@ public class TtjjApiDataCollector implements ApiDataCollector {
 
     @Override
     public List<FunPerformance> collectFunPerformance(DataCollectParam collectParam) {
+
         return null;
     }
 }

@@ -1,4 +1,4 @@
-package com.jjq.funda.model;
+package com.jjq.funda.model.enums;
 
 /**
  * @author jjq
@@ -7,6 +7,8 @@ package com.jjq.funda.model;
  * @desc 基金状态枚举 更新成功, 更新中,
  */
 public enum FundStatus {
+
+
 
 
 

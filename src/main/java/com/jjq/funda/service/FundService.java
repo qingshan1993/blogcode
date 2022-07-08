@@ -1,6 +1,6 @@
 package com.jjq.funda.service;
 
-import com.jjq.funda.dto.AddOrUpdateFundDTO;
+import com.jjq.funda.model.dto.AddOrUpdateFundDTO;
 
 /**
  * @author jjq

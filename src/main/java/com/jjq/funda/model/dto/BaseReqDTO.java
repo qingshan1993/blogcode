@@ -1,4 +1,4 @@
-package com.jjq.funda.dto;
+package com.jjq.funda.model.dto;
 
 import lombok.Getter;
 import lombok.Setter;

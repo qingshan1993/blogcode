@@ -1,12 +1,10 @@
-package com.jjq.funda.dto;
+package com.jjq.funda.model.dto;
 
 import com.jjq.funda.util.JsonUtils;
-import com.jjq.funda.vo.AddOrUpdateFundItemVO;
+import com.jjq.funda.model.vo.AddOrUpdateFundItemVO;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

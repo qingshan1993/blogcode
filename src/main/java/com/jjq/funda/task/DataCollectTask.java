@@ -35,5 +35,12 @@ public class DataCollectTask {
 
     }
 
+    /**
+     * 创建基金业绩数据收集任务
+     */
+    public void createFunPerformanceDataCollectTask() {
+
+    }
+
 
 }

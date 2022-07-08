@@ -7,4 +7,8 @@ package com.jjq.funda.model;
  * @desc
  */
 public class DataCollectParam {
+
+    private Integer pageSize;
+
+    private Integer current;
 }
