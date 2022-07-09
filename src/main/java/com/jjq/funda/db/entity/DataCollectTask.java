@@ -21,7 +21,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "data_collect_task")
+//@Entity(name = "data_collect_task")
 public class DataCollectTask {
 
     /**
@@ -48,9 +48,9 @@ public class DataCollectTask {
 
 
     /**
-     * 任务执行的时间
+     * 执行时间表达式
      */
-    private LocalDateTime exeTime;
+    private String exeTimeCorn;
 
 
 }

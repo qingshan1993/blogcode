@@ -3,7 +3,7 @@ package com.jjq.funda.data;
 import com.jjq.funda.db.entity.FunPerformance;
 import com.jjq.funda.db.entity.Fund;
 import com.jjq.funda.db.entity.FundComponent;
-import com.jjq.funda.model.DataCollectParam;
+import com.jjq.funda.model.param.DataCollectParam;
 
 import java.util.List;
 

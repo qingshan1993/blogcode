@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -14,15 +13,15 @@ import static javax.persistence.GenerationType.IDENTITY;
  * @author qingshan1993
  * @version 1.0
  * @date 2022/7/5
- * @desc 数据收集任务执行日志
+ * @desc 数据收集任务列表
  */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Entity(name = "data_collect_task_log")
-public class DataCollectTaskLog {
+//@Entity(name = "data_collect_task_config")
+public class DataCollectTaskConfig {
 
     /**
      * 主键id
@@ -32,24 +31,19 @@ public class DataCollectTaskLog {
     private Integer id;
 
     /**
-     * 任务名称
+     * 任务id
      */
     private String taskId;
 
     /**
-     * 任务执行时间
+     * 配置项名
      */
-    private LocalDateTime exeTime;
+    private String configName;
 
     /**
-     * 任务类型
+     * 配置项值
      */
-    private String inputParam;
-
-    /**
-     * 任务状态
-     */
-    private String exe_result;
+    private String configValue;
 
 
 }

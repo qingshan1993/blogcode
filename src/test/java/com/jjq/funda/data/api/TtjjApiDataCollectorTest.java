@@ -1,7 +1,7 @@
 package com.jjq.funda.data.api;
 
 import com.jjq.funda.FundaApplicationTests;
-import com.jjq.funda.model.DataCollectParam;
+import com.jjq.funda.model.param.DataCollectParam;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +20,14 @@ public class TtjjApiDataCollectorTest extends FundaApplicationTests {
     @Test
     public void collectFundTest() {
         ttjjApiDataCollector.collectFund(new DataCollectParam());
+    }
+
+    @Test
+    public void collectFunPerformanceTest() {
+        DataCollectParam dataCollectParam = new DataCollectParam();
+        dataCollectParam.setFundCode("003096");
+        dataCollectParam.setCurrent(1);
+        dataCollectParam.setPageSize(10);
+        ttjjApiDataCollector.collectFunPerformance(dataCollectParam);
     }
 }

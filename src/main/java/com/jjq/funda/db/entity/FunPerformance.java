@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -40,7 +41,7 @@ public class FunPerformance {
     /**
      * 日期
      */
-    private String fundDate;
+    private LocalDate fundDate;
 
     /**
      * 单位净值
@@ -77,15 +78,6 @@ public class FunPerformance {
      */
     private LocalDateTime estimateTime;
 
-    /**
-     * 状态
-     */
-    private String status;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
 
     @Override
     public String toString() {

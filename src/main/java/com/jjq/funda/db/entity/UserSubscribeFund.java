@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -12,16 +13,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 /**
  * @author qingshan1993
  * @version 1.0
- * @date 2022/7/5
- * @desc 数据收集任务列表
+ * @date 2022/7/9
+ * @desc 用户基金订阅记录
  */
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "data_collect_task_param")
-public class DataCollectTaskParam {
+@Entity(name = "user_subscribe_fund")
+public class UserSubscribeFund {
 
     /**
      * 主键id
@@ -31,19 +32,31 @@ public class DataCollectTaskParam {
     private Integer id;
 
     /**
-     * 任务名称
+     * 用户ID
      */
-    private String taskId;
+    private Long userId;
 
     /**
-     * 任务类型
+     * 基金编码
      */
-    private String paramName;
+    private String fundCode;
+
 
     /**
-     * 任务状态
+     * 用户订阅时间
      */
-    private String paramValue;
+    private LocalDateTime subscribeTime;
+
+    /**
+     * 取消订阅时间
+     */
+    private LocalDate cancelSubscribeTime;
+
+    /**
+     * 用户订阅状态
+     */
+    private String subscribeStatus;
+
 
 
 }
