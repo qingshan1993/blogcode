@@ -59,6 +59,16 @@ public class FunPerformance {
     private BigDecimal risePercent;
 
     /**
+     * 申购状态
+     */
+    private String purchaseStatus;
+
+    /**
+     * 赎回状态
+     */
+    private String redeemStatus;
+
+    /**
      * 估算净值
      */
     private BigDecimal estimateUnitValue;

@@ -4,20 +4,30 @@ import com.google.common.io.Files;
 import com.jjq.funda.db.entity.FunPerformance;
 import com.jjq.funda.db.entity.Fund;
 import com.jjq.funda.db.entity.FundComponent;
+import com.jjq.funda.db.repo.FundPerformanceRepo;
 import com.jjq.funda.db.repo.FundRepo;
 import com.jjq.funda.model.GlobalConstant;
 import com.jjq.funda.model.param.DataCollectParam;
 import com.jjq.funda.support.TtjjHttpClient;
+import com.jjq.funda.util.BigDecimalUtils;
+import com.jjq.funda.util.JsUtils;
 import com.jjq.funda.util.JsonUtils;
+import com.jjq.funda.util.LocalDateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.DelayQueue;
 
 /**
  * @author qingshan1993
@@ -29,12 +39,19 @@ import java.util.List;
 @Component
 public class TtjjApiDataCollector implements ApiDataCollector {
 
+    public static String filepath = "C:\\Users\\Administrator\\Desktop\\新建文本文档.txt";
+    public static DecimalFormat DF = new DecimalFormat("##.##%");
+
+
     @Autowired
     private TtjjHttpClient ttjjHttpClient;
-    public static String filepath = "C:\\Users\\Administrator\\Desktop\\新建文本文档.txt";
+
 
     @Autowired
     private FundRepo fundRepo;
+
+    @Autowired
+    private FundPerformanceRepo fundPerformanceRepo;
 
     @Override
     public List<Fund> collectFund(DataCollectParam collectParam) {
@@ -93,8 +110,31 @@ public class TtjjApiDataCollector implements ApiDataCollector {
                 "2022-06-28\t2.6590\t2.8910\t-0.41%\t限制大额申购\t开放赎回\t\n" +
                 "2022-06-27\t2.6700\t2.9020\t1.17%\t限制大额申购\t开放赎回\t\n" +
                 "\",records:1395,pages:140,curpage:1};";
-
-
+        String jsStr = strResult.replace("\"\n", "\"")
+                .replace("\t","@").replace("\n","@@").replace("@@@","@@");
+        Map<String, Object> dataMap = JsUtils.parseJjObject(jsStr, "apidata");
+        String content = (String) dataMap.get("content");
+        String[] funPerformanceArr = content.split("@@");
+        List<FunPerformance> funPerformanceList = new ArrayList<>(funPerformanceArr.length);
+        for (int i = 1; i <funPerformanceArr.length; i++) {
+            String[] split = funPerformanceArr[i].split("@");
+            FunPerformance funPerformance = FunPerformance.builder()
+                    .fundCode(param.getFundCode())
+                    .fundDate(LocalDateTimeUtils.parse(split[0]).toLocalDate())
+                    .unitValue(new BigDecimal(split[1]))
+                    .totalUnitValue(new BigDecimal(split[2]))
+                    .risePercent(BigDecimalUtils.parseWithPercentSymbol(split[3]))
+                    .purchaseStatus(split[4])
+                    .redeemStatus(split[5])
+                    .estimateUnitValue(new BigDecimal(split[1]))
+                    .estimateTotalUnitValue(new BigDecimal(split[2]))
+                    .estimateRisePercent(BigDecimalUtils.parseWithPercentSymbol(split[3]))
+                    .estimateTime(LocalDateTimeUtils.parse(split[0]))
+                    .build();
+            funPerformanceList.add(funPerformance);
+        }
+        List<FunPerformance> saveAll = fundPerformanceRepo.saveAll(funPerformanceList);
+        log.info("批量保存基金业绩数据成功, fundCode:{}, saveAllSize:{}", param.getFundCode(), saveAll.size());
         return null;
     }
 }

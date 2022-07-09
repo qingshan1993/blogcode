@@ -1,10 +1,10 @@
 package com.jjq.funda.util;
 
 /**
- * @author jjq
- * @version 1.0
- * @date 2022/1/17
- * @desc a day's instant enum
+ * @author jiangjunqing
+ * @date 2022/2/28
+ * @description: a day's instant enum
+ * @version:
  */
 public enum DayInstant {
 

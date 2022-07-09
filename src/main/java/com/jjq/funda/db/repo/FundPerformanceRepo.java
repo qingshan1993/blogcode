@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  * @desc 基金业绩
  */
 @Repository
-public interface FunPerformanceRepo extends JpaRepository<FunPerformance, Integer>  {
+public interface FundPerformanceRepo extends JpaRepository<FunPerformance, Integer>  {
 }
