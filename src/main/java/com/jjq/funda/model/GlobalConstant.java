@@ -26,5 +26,14 @@ public interface GlobalConstant {
 
     }
 
+    /**
+     * 队列消息
+     */
+    interface QueueMsgType {
+
+        String COLLECT_FUND_PERFORMANCE = "COLLECT_FUND_PERFORMANCE";
+
+    }
+
 
 }

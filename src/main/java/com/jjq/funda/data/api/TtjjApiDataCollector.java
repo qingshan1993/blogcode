@@ -7,6 +7,7 @@ import com.jjq.funda.db.entity.FundComponent;
 import com.jjq.funda.db.repo.FundPerformanceRepo;
 import com.jjq.funda.db.repo.FundRepo;
 import com.jjq.funda.model.GlobalConstant;
+import com.jjq.funda.model.anno.QueueListener;
 import com.jjq.funda.model.param.DataCollectParam;
 import com.jjq.funda.support.TtjjHttpClient;
 import com.jjq.funda.util.BigDecimalUtils;
@@ -88,7 +89,9 @@ public class TtjjApiDataCollector implements ApiDataCollector {
     }
 
     @Override
+    @QueueListener(msgType = GlobalConstant.QueueMsgType.COLLECT_FUND_PERFORMANCE, paramType = DataCollectParam.class)
     public List<FundComponent> collectFundComponent(DataCollectParam collectParam) {
+        log.info("开始执行基金数据收集,collectParam:{}", JsonUtils.toJsonString(collectParam));
         return null;
     }
 

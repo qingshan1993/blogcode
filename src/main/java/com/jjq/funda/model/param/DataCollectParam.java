@@ -1,6 +1,10 @@
 package com.jjq.funda.model.param;
 
+import com.jjq.funda.model.QueueMsg;
 import lombok.*;
+
+import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author qingshan1993
@@ -13,8 +17,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataCollectParam {
-
+public class DataCollectParam extends QueueMsg implements Delayed {
 
     /**
      * 基金编码
@@ -30,4 +33,15 @@ public class DataCollectParam {
      * 当前第几页
      */
     private Integer current;
+
+
+    @Override
+    public long getDelay(TimeUnit unit) {
+        return 0;
+    }
+
+    @Override
+    public int compareTo(Delayed o) {
+        return 0;
+    }
 }
