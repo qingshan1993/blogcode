@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Delayed;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -67,9 +68,16 @@ public class QueueListenerProcessor {
                                 log.info("::::::::msgType:{},queueMsg.getMsgType():{}", msgType, queueMsg.getMsgType());
                                 log.info("::::::::retry:{}, queueMsg.getRetried():{}", retry, queueMsg.getRetried());
                                 if (msgType.equals(queueMsg.getMsgType()) && retry > queueMsg.getRetried()) {
-                                    Object bean = applicationContext.getBean(entry.getKey().getDeclaringClass());
-                                    log.info("消息监听消费成功,调用反射执行方法:{}, DeclaringClass:{}", JsonUtils.toJsonString(pollResult), entry.getKey().getDeclaringClass());
-                                    ReflectionUtils.invokeMethod(entry.getKey(), bean, pollResult);
+                                    try {
+                                        Object bean = applicationContext.getBean(entry.getKey().getDeclaringClass());
+                                        log.info("消息监听消费成功,调用反射执行方法:{}, DeclaringClass:{}", JsonUtils.toJsonString(pollResult), entry.getKey().getDeclaringClass());
+                                    } catch (Exception e) {
+                                        log.info("消息监听消费失败,放入队列等等重新消费{}", JsonUtils.toJsonString(pollResult));
+                                        ((QueueMsg) pollResult).setRetried(((QueueMsg) pollResult).getRetried() + 1);
+                                        queue.put(pollResult,10, TimeUnit.MILLISECONDS);
+                                    }
+                                } else {
+                                    log.error("消息消费失败,已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult));
                                 }
                             }
                         }
