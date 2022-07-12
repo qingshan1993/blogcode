@@ -29,5 +29,5 @@ public @interface QueueListener {
      * 重试次数
      * @return
      */
-    int retry() default 6;
+    int retry() default 3;
 }

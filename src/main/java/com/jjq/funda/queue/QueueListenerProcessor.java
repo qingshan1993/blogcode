@@ -60,13 +60,9 @@ public class QueueListenerProcessor {
                         log.info("消息监听消费成功,pollResult:{}", JsonUtils.toJsonString(pollResult));
                         for (Map.Entry<Method, QueueListener> entry : methodAnnotationsCache.entrySet()) {
                             String msgType = entry.getValue().msgType();
-                            Class paramType = entry.getValue().paramType();
                             int retry = entry.getValue().retry();
                             if (pollResult instanceof QueueMsg) {
-                                log.info("::::::::::::pollResult instanceof QueueMsg :true");
                                 QueueMsg queueMsg = (QueueMsg) pollResult;
-                                log.info("::::::::msgType:{},queueMsg.getMsgType():{}", msgType, queueMsg.getMsgType());
-                                log.info("::::::::retry:{}, queueMsg.getRetried():{}", retry, queueMsg.getRetried());
                                 if (msgType.equals(queueMsg.getMsgType()) && retry > queueMsg.getRetried()) {
                                     try {
                                         Object bean = applicationContext.getBean(entry.getKey().getDeclaringClass());
@@ -74,7 +70,7 @@ public class QueueListenerProcessor {
                                     } catch (Exception e) {
                                         log.info("消息监听消费失败,放入队列等等重新消费{}", JsonUtils.toJsonString(pollResult));
                                         ((QueueMsg) pollResult).setRetried(((QueueMsg) pollResult).getRetried() + 1);
-                                        queue.put(pollResult,10, TimeUnit.MILLISECONDS);
+                                        queue.put(pollResult, 10L * ((QueueMsg) pollResult).getRetried(), TimeUnit.MILLISECONDS);
                                     }
                                 } else {
                                     log.error("消息消费失败,已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult));

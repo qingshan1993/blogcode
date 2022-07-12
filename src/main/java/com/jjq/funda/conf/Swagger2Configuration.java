@@ -29,6 +29,6 @@ public class Swagger2Configuration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("funda").description("funda api").build();
+        return new ApiInfoBuilder().title("funda").description("funda api").contact("jiangjunqing").build();
     }
 }
