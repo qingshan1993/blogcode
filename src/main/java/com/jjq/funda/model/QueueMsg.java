@@ -23,4 +23,9 @@ public class QueueMsg {
      * 已重试次数
      */
     public int retried;
+
+    /**
+     * 消息消费时间
+     */
+    public long pollTime;
 }

@@ -53,7 +53,7 @@ public class QueueListenerProcessor {
                 log.info(":::::::::::启动后台守护线程,监听队列消息:::::::::::::::::::");
                 while (true) {
                     for (DataCollectQueue queue : queueList) {
-                        Delayed pollResult = queue.poll();
+                        Object pollResult = queue.poll();
                         if (pollResult == null) {
                             continue;
                         }

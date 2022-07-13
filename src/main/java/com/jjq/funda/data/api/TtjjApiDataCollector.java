@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,10 +89,12 @@ public class TtjjApiDataCollector implements ApiDataCollector {
         return null;
     }
 
+    public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Override
     @QueueListener(msgType = GlobalConstant.QueueMsgType.COLLECT_FUND_PERFORMANCE, paramType = DataCollectParam.class)
     public List<FundComponent> collectFundComponent(DataCollectParam collectParam) {
-        log.info("开始执行基金数据收集,collectParam:{}", JsonUtils.toJsonString(collectParam));
+        log.info("开始执行基金数据收集,collectParam:{}, 当前时间:{}", JsonUtils.toJsonString(collectParam), dateTimeFormatter.format(LocalDateTime.now()));
         return null;
     }
 

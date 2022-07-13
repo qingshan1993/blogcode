@@ -23,11 +23,15 @@ public class DataCollectDelayQueue implements DataCollectQueue<DataCollectParam>
     /**
      * 任务入队
      * @param param
-     * @param timeout
-     * @param unit
      */
-    public void put(DataCollectParam param, long timeout, TimeUnit unit) {
-        delayQueue.offer(param, timeout, unit);
+    public void put(DataCollectParam param) {
+        throw new UnsupportedOperationException("DataCollectDelayQueue only support delay task.");
+    }
+
+    @Override
+    public void put(DataCollectParam param, long delayTime, TimeUnit timeUnit) {
+        param.setPollTime(System.currentTimeMillis() + timeUnit.toMillis(delayTime));
+        delayQueue.offer(param);
         log.info("加入队列成功,param:{}", JsonUtils.toJsonString(param));
     }
 
