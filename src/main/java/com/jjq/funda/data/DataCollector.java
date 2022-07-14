@@ -21,7 +21,7 @@ public interface DataCollector {
      * @param collectParam
      * @return
      */
-    List<Fund> collectFund(DataCollectParam collectParam);
+    void collectFund(DataCollectParam collectParam);
 
 
     /**
@@ -29,7 +29,7 @@ public interface DataCollector {
      * @param collectParam
      * @return
      */
-    List<FundComponent> collectFundComponent(DataCollectParam collectParam);
+    void collectFundComponent(DataCollectParam collectParam);
 
 
     /**
@@ -37,7 +37,7 @@ public interface DataCollector {
      * @param collectParam
      * @return
      */
-    List<FunPerformance> collectFunPerformance(DataCollectParam collectParam);
+    void collectFunPerformance(DataCollectParam collectParam);
 
 
 }

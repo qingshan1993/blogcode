@@ -17,17 +17,17 @@ public class TtjjCrawlerDataCollector implements CrawlerDataCollector {
 
 
     @Override
-    public List<Fund> collectFund(DataCollectParam collectParam) {
-        return null;
+    public void collectFund(DataCollectParam collectParam) {
+
     }
 
     @Override
-    public List<FundComponent> collectFundComponent(DataCollectParam collectParam) {
-        return null;
+    public void collectFundComponent(DataCollectParam collectParam) {
+
     }
 
     @Override
-    public List<FunPerformance> collectFunPerformance(DataCollectParam collectParam) {
-        return null;
+    public void collectFunPerformance(DataCollectParam collectParam) {
+
     }
 }

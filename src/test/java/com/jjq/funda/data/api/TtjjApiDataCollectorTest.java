@@ -34,12 +34,15 @@ public class TtjjApiDataCollectorTest extends FundaApplicationTests {
     }
 
     @Test
-    public void collectFunPerformanceTest() {
+    public void collectFunPerformanceTest() throws InterruptedException {
         DataCollectParam dataCollectParam = new DataCollectParam();
         dataCollectParam.setFundCode("003096");
         dataCollectParam.setCurrent(1);
-        dataCollectParam.setPageSize(10);
+        dataCollectParam.setPageSize(20);
         ttjjApiDataCollector.collectFunPerformance(dataCollectParam);
+
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        countDownLatch.await();
     }
 
     @Autowired
