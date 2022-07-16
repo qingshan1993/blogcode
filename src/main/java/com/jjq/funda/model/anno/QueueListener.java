@@ -19,11 +19,6 @@ public @interface QueueListener {
      */
     String msgType() default "";
 
-    /**
-     * 具体参数类型
-     * @return
-     */
-    Class<?> paramType();
 
     /**
      * 重试次数

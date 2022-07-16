@@ -1,9 +1,9 @@
 package com.jjq.funda.data.api;
 
+import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 import com.jjq.funda.db.entity.FunPerformance;
 import com.jjq.funda.db.entity.Fund;
-import com.jjq.funda.db.entity.FundComponent;
 import com.jjq.funda.db.repo.FundPerformanceRepo;
 import com.jjq.funda.db.repo.FundRepo;
 import com.jjq.funda.model.GlobalConstant;
@@ -18,7 +18,6 @@ import com.jjq.funda.util.LocalDateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.DelayQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -100,7 +98,7 @@ public class TtjjApiDataCollector implements ApiDataCollector {
         collectFunPerformance(param, false);
     }
 
-    @QueueListener(msgType = GlobalConstant.QueueMsgType.COLLECT_FUND_PERFORMANCE, paramType = DataCollectParam.class)
+    @QueueListener(msgType = GlobalConstant.QueueMsgType.COLLECT_FUND_PERFORMANCE)
     public void collectFundComponentFromQueueTask(DataCollectParam collectParam) {
         log.info("开始执行基金数据收集,collectParam:{}, 当前时间:{}", JsonUtils.toJsonString(collectParam), dateTimeFormatter.format(LocalDateTime.now()));
         collectFunPerformance(collectParam, true);
@@ -147,6 +145,15 @@ public class TtjjApiDataCollector implements ApiDataCollector {
                 dataCollectDelayQueue.put(dataCollectParam, 1 + random.nextInt(20), TimeUnit.MINUTES);
             }
         }
+    }
+
+    /**
+     * 从响应信息中解析基金业绩数据
+     * @param respStr
+     * @return
+     */
+    private List<String[]> parseFromStr(String respStr) {
+        return Lists.newArrayList();
     }
 
     @Override
