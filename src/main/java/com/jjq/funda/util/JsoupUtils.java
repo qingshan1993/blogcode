@@ -23,7 +23,7 @@ public class JsoupUtils {
      */
     public static List<String[]> parseTable(String htmlFragment) {
         List<String[]> result = Lists.newArrayList();
-        Document document = Jsoup.parse(htmlFragment);
+        Document document = Jsoup.parseBodyFragment(htmlFragment);
         Elements trs = document.select("tr");
         Object[] objects = trs.toArray();
         for (Object ele : objects) {

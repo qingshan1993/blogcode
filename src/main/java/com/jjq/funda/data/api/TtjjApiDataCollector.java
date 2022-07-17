@@ -16,6 +16,7 @@ import com.jjq.funda.util.JsUtils;
 import com.jjq.funda.util.JsonUtils;
 import com.jjq.funda.util.LocalDateTimeUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -153,6 +154,8 @@ public class TtjjApiDataCollector implements ApiDataCollector {
      * @return
      */
     private List<String[]> parseFromStr(String respStr) {
+        //Jsoup.isValid(respStr);
+
         return Lists.newArrayList();
     }
 
