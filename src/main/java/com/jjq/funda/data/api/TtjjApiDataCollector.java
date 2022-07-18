@@ -11,10 +11,7 @@ import com.jjq.funda.model.anno.QueueListener;
 import com.jjq.funda.model.param.DataCollectParam;
 import com.jjq.funda.queue.DataCollectDelayQueue;
 import com.jjq.funda.support.TtjjHttpClient;
-import com.jjq.funda.util.BigDecimalUtils;
-import com.jjq.funda.util.JsUtils;
-import com.jjq.funda.util.JsonUtils;
-import com.jjq.funda.util.LocalDateTimeUtils;
+import com.jjq.funda.util.*;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,10 +110,10 @@ public class TtjjApiDataCollector implements ApiDataCollector {
                 .replace("\t","@").replace("\n","@@").replace("@@@","@@");
         Map<String, Object> dataMap = JsUtils.parseJjObject(jsStr, "apidata");
         String content = (String) dataMap.get("content");
-        String[] funPerformanceArr = content.split("@@");
-        List<FunPerformance> funPerformanceList = new ArrayList<>(funPerformanceArr.length);
-        for (int i = 1; i <funPerformanceArr.length; i++) {
-            String[] split = funPerformanceArr[i].split("@");
+        List<String[]> contentList = parseContent(content);
+        List<FunPerformance> funPerformanceList = new ArrayList<>(contentList.size());
+        for (int i = 1; i < contentList.size(); i++) {
+            String[] split = contentList.get(0);
             FunPerformance funPerformance = FunPerformance.builder()
                     .fundCode(param.getFundCode())
                     .fundDate(LocalDateTimeUtils.parse(split[0]).toLocalDate())
@@ -134,7 +131,7 @@ public class TtjjApiDataCollector implements ApiDataCollector {
         }
         List<FunPerformance> saveAll = fundPerformanceRepo.saveAll(funPerformanceList);
         log.info("批量保存基金业绩数据成功, fundCode:{}, saveAllSize:{}", param.getFundCode(), saveAll.size());
-        if (!fromQueue && param.getCurrent() == 1) {
+        if (!fromQueue && param.getCurrent() == 1 && saveAll.size() > 0) {
             Integer pages = (Integer) dataMap.get("pages");
             Random random = new Random();
             for (int i = 2; i <= pages; i++) {
@@ -150,13 +147,20 @@ public class TtjjApiDataCollector implements ApiDataCollector {
 
     /**
      * 从响应信息中解析基金业绩数据
-     * @param respStr
+     * @param content
      * @return
      */
-    private List<String[]> parseFromStr(String respStr) {
-        //Jsoup.isValid(respStr);
-
-        return Lists.newArrayList();
+    private List<String[]> parseContent(String content) {
+        List<String[]> result = new ArrayList<>(20);
+        if (JsoupUtils.isValidHtmlFragment(content)) {
+            result = JsoupUtils.parseTable(content);
+        } else {
+            String[] funPerformanceArr = content.split("@@");
+            for (int i = 1; i <funPerformanceArr.length; i++) {
+                result.add(funPerformanceArr[i].split("@"));
+            }
+        }
+        return result;
     }
 
     @Override

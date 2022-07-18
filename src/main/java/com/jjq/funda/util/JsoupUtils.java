@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.util.List;
@@ -32,5 +33,14 @@ public class JsoupUtils {
             result.add(thArr);
         }
         return result;
+    }
+
+    /**
+     * 解析表格html,返回表格内容
+     * @param htmlFragment html片段
+     * @return
+     */
+    public static boolean isValidHtmlFragment(String htmlFragment) {
+        return htmlFragment.startsWith("<table");
     }
 }
