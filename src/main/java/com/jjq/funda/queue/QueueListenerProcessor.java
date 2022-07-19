@@ -36,7 +36,6 @@ public class QueueListenerProcessor {
     @Autowired
     private ApplicationContext applicationContext;
 
-
     @PostConstruct
     public void init() {
         //搜索整个项目中,找到带有@QueueListener注解的方法
@@ -60,11 +59,16 @@ public class QueueListenerProcessor {
                             int retry = entry.getValue().retry();
                             if (pollResult instanceof QueueMsg) {
                                 QueueMsg queueMsg = (QueueMsg) pollResult;
-                                if (msgType.equals(queueMsg.getMsgType()) && retry > queueMsg.getRetried()) {
+                                if (!msgType.equals(queueMsg.getMsgType())) {
+                                    continue;
+                                }
+                                if (retry > queueMsg.getRetried()) {
                                     try {
                                         Object bean = applicationContext.getBean(entry.getKey().getDeclaringClass());
                                         ReflectionUtils.invokeMethod(entry.getKey(), bean, pollResult);
                                     } catch (Exception e) {
+                                        log.error("消息消费失败,已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult),e);
+                                        log.error("", e);
                                         ((QueueMsg) pollResult).setRetried(((QueueMsg) pollResult).getRetried() + 1);
                                         queue.put(pollResult, 10L * ((QueueMsg) pollResult).getRetried(), TimeUnit.MILLISECONDS);
                                     }

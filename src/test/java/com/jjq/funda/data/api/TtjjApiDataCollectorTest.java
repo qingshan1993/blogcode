@@ -70,4 +70,22 @@ public class TtjjApiDataCollectorTest extends FundaApplicationTests {
         CountDownLatch countDownLatch = new CountDownLatch(1);
         countDownLatch.await();
     }
+
+
+    @Test
+    public void sendMsgTest() throws InterruptedException {
+        DataCollectParam dataCollectParam = new DataCollectParam();
+        dataCollectParam.setFundCode("003096");
+        dataCollectParam.setCurrent(1);
+        dataCollectParam.setPageSize(10);
+        dataCollectParam.setMsgType(GlobalConstant.QueueMsgType.TEST);
+        for (int i = 0; i < 100; i++) {
+            dataCollectDelayQueue.put(dataCollectParam,20L, TimeUnit.SECONDS);
+            log.info("发送消息:{}到延时队列,延时时间:{}s, 当前时间:{}",dataCollectParam, 20, dateTimeFormatter.format(LocalDateTime.now()));
+        }
+
+
+        CountDownLatch countDownLatch = new CountDownLatch(1);
+        countDownLatch.await();
+    }
 }

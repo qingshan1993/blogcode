@@ -9,6 +9,8 @@ package com.jjq.funda.task;
 public class DataCollectTask {
 
 
+
+
     public void executeDataCollect() {
 
     }

@@ -22,15 +22,16 @@ public class JsoupUtils {
      * @param htmlFragment html片段
      * @return
      */
-    public static List<String[]> parseTable(String htmlFragment) {
-        List<String[]> result = Lists.newArrayList();
+    public static List<List<String>> parseTable(String htmlFragment) {
+        List<List<String>> result = Lists.newArrayList();
         Document document = Jsoup.parseBodyFragment(htmlFragment);
         Elements trs = document.select("tr");
         Object[] objects = trs.toArray();
-        for (Object ele : objects) {
+        for (int i = 1; i < objects.length; i++) {
+            Object ele = objects[i];
             Element element = (Element) ele;
-            String[] thArr = (String[]) element.select("th").eachText().toArray();
-            result.add(thArr);
+            List<String> th = element.select("td").eachText();
+            result.add(th);
         }
         return result;
     }

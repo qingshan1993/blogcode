@@ -110,22 +110,23 @@ public class TtjjApiDataCollector implements ApiDataCollector {
                 .replace("\t","@").replace("\n","@@").replace("@@@","@@");
         Map<String, Object> dataMap = JsUtils.parseJjObject(jsStr, "apidata");
         String content = (String) dataMap.get("content");
-        List<String[]> contentList = parseContent(content);
+        //从响应信息中解析基金业绩数据, 已去掉表头
+        List<List<String>> contentList = parseContent(content);
         List<FunPerformance> funPerformanceList = new ArrayList<>(contentList.size());
-        for (int i = 1; i < contentList.size(); i++) {
-            String[] split = contentList.get(0);
+        for (int i = 0; i < contentList.size(); i++) {
+            List<String> item = contentList.get(i);
             FunPerformance funPerformance = FunPerformance.builder()
                     .fundCode(param.getFundCode())
-                    .fundDate(LocalDateTimeUtils.parse(split[0]).toLocalDate())
-                    .unitValue(new BigDecimal(split[1]))
-                    .totalUnitValue(new BigDecimal(split[2]))
-                    .risePercent(BigDecimalUtils.parseWithPercentSymbol(split[3]))
-                    .purchaseStatus(split[4])
-                    .redeemStatus(split[5])
-                    .estimateUnitValue(new BigDecimal(split[1]))
-                    .estimateTotalUnitValue(new BigDecimal(split[2]))
-                    .estimateRisePercent(BigDecimalUtils.parseWithPercentSymbol(split[3]))
-                    .estimateTime(LocalDateTimeUtils.parse(split[0]))
+                    .fundDate(LocalDateTimeUtils.parse(item.get(0)).toLocalDate())
+                    .unitValue(new BigDecimal(item.get(1)))
+                    .totalUnitValue(new BigDecimal(item.get(2)))
+                    .risePercent(BigDecimalUtils.parseWithPercentSymbol(item.get(3)))
+                    .purchaseStatus(item.get(4))
+                    .redeemStatus(item.get(5))
+                    .estimateUnitValue(new BigDecimal(item.get(1)))
+                    .estimateTotalUnitValue(new BigDecimal(item.get(2)))
+                    .estimateRisePercent(BigDecimalUtils.parseWithPercentSymbol(item.get(3)))
+                    .estimateTime(LocalDateTimeUtils.parse(item.get(0)))
                     .build();
             funPerformanceList.add(funPerformance);
         }
@@ -140,24 +141,25 @@ public class TtjjApiDataCollector implements ApiDataCollector {
                 dataCollectParam.setFundCode(param.getFundCode());
                 dataCollectParam.setPageSize(param.getPageSize());
                 dataCollectParam.setCurrent(i);
-                dataCollectDelayQueue.put(dataCollectParam, 1 + random.nextInt(20), TimeUnit.MINUTES);
+                dataCollectDelayQueue.put(dataCollectParam, 1 + random.nextInt(25), TimeUnit.MINUTES);
             }
         }
     }
 
     /**
-     * 从响应信息中解析基金业绩数据
+     * 从响应信息中解析基金业绩数据, 已去掉表头
      * @param content
      * @return
      */
-    private List<String[]> parseContent(String content) {
-        List<String[]> result = new ArrayList<>(20);
+    private List<List<String>> parseContent(String content) {
+        List<List<String>> result = new ArrayList<>(20);
         if (JsoupUtils.isValidHtmlFragment(content)) {
             result = JsoupUtils.parseTable(content);
         } else {
             String[] funPerformanceArr = content.split("@@");
             for (int i = 1; i <funPerformanceArr.length; i++) {
-                result.add(funPerformanceArr[i].split("@"));
+                String[] split = funPerformanceArr[i].split("@");
+                result.add(Lists.newArrayList(split));
             }
         }
         return result;
@@ -166,5 +168,10 @@ public class TtjjApiDataCollector implements ApiDataCollector {
     @Override
     public void collectFundComponent(DataCollectParam collectParam) {
 
+    }
+
+    @QueueListener(msgType = GlobalConstant.QueueMsgType.TEST)
+    public void testConsumeQueueMsg(DataCollectParam collectParam) {
+        log.info("开始执行基金数据收集,collectParam:{}, 当前时间:{}", JsonUtils.toJsonString(collectParam), dateTimeFormatter.format(LocalDateTime.now()));
     }
 }

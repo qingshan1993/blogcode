@@ -41,8 +41,11 @@ public class JsoupTest {
         Object[] eles = trs.toArray();
         for (Object ele : eles) {
             Element element = (Element) ele;
-            String[] thArr = (String[]) element.select("th").eachText().toArray();
-            System.out.println();
+            Elements th = element.select("th");
+            List<String> strings = th.eachText();
+            String[] strings1 = (String[]) (strings.toArray());
+            //String[] thArr = (String[]) element.select("th").eachText().toArray();
+            System.out.println(strings1);
 
         }
         List<String> strings = trs.eachText();

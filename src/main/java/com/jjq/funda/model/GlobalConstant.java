@@ -45,7 +45,10 @@ public interface GlobalConstant {
      */
     interface QueueMsgType {
 
+        String TEST = "test_msg_type";
+
         String COLLECT_FUND_PERFORMANCE = "collect_fund_performance";
+
 
     }
 
