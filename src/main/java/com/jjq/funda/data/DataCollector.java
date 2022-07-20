@@ -32,12 +32,14 @@ public interface DataCollector {
     void collectFundComponent(DataCollectParam collectParam);
 
 
+
     /**
      * 获取基金业绩信息
      * @param collectParam
      * @return
      */
     void collectFunPerformance(DataCollectParam collectParam);
+
 
 
 }

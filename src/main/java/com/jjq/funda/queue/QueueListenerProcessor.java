@@ -67,10 +67,9 @@ public class QueueListenerProcessor {
                                         Object bean = applicationContext.getBean(entry.getKey().getDeclaringClass());
                                         ReflectionUtils.invokeMethod(entry.getKey(), bean, pollResult);
                                     } catch (Exception e) {
-                                        log.error("消息消费失败,已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult),e);
-                                        log.error("", e);
                                         ((QueueMsg) pollResult).setRetried(((QueueMsg) pollResult).getRetried() + 1);
-                                        queue.put(pollResult, 10L * ((QueueMsg) pollResult).getRetried(), TimeUnit.MILLISECONDS);
+                                        queue.put(pollResult, ((QueueMsg) pollResult).getRetried(), TimeUnit.MINUTES);
+                                        log.info("消息消费失败放入队列重新消费, 已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult),e);
                                     }
                                 } else {
                                     log.error("消息消费失败,已重试{}次,消息内容:{}",retry, JsonUtils.toJsonString(pollResult));

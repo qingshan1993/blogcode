@@ -1,16 +1,19 @@
 package com.jjq.funda.data.api;
 
+import com.google.common.collect.Lists;
 import com.jjq.funda.FundaApplicationTests;
 import com.jjq.funda.model.GlobalConstant;
 import com.jjq.funda.model.param.DataCollectParam;
 
 import com.jjq.funda.queue.DataCollectDelayQueue;
+import jdk.nashorn.internal.ir.CallNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -35,11 +38,15 @@ public class TtjjApiDataCollectorTest extends FundaApplicationTests {
 
     @Test
     public void collectFunPerformanceTest() throws InterruptedException {
-        DataCollectParam dataCollectParam = new DataCollectParam();
-        dataCollectParam.setFundCode("003096");
-        dataCollectParam.setCurrent(1);
-        dataCollectParam.setPageSize(20);
-        ttjjApiDataCollector.collectFunPerformance(dataCollectParam);
+        //50 56 38 70
+        List<Integer> currList = Lists.newArrayList(71);
+        for (Integer item : currList) {
+            DataCollectParam dataCollectParam = new DataCollectParam();
+            dataCollectParam.setFundCode("003096");
+            dataCollectParam.setCurrent(item);
+            dataCollectParam.setPageSize(20);
+            ttjjApiDataCollector.collectFunPerformance(dataCollectParam);
+        }
 
         CountDownLatch countDownLatch = new CountDownLatch(1);
         countDownLatch.await();

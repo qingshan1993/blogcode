@@ -8,6 +8,7 @@ import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author qingshan1993
@@ -30,8 +31,12 @@ public class JsoupUtils {
         for (int i = 1; i < objects.length; i++) {
             Object ele = objects[i];
             Element element = (Element) ele;
-            List<String> th = element.select("td").eachText();
-            result.add(th);
+            ListIterator<Element> listIterator = element.select("td").listIterator();
+            List<String> innerResult = Lists.newArrayList();
+            while (listIterator.hasNext()) {
+                innerResult.add(listIterator.next().text());
+            }
+            result.add(innerResult);
         }
         return result;
     }
