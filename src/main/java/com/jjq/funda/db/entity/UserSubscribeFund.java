@@ -1,10 +1,9 @@
 package com.jjq.funda.db.entity;
 
+import com.jjq.funda.model.enums.DataState;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -54,8 +53,10 @@ public class UserSubscribeFund {
 
     /**
      * 用户订阅状态
+     * VALID=有效的, INVALID=无效的,用户已取消订阅
      */
-    private String subscribeStatus;
+    @Enumerated(EnumType.STRING)
+    private DataState subscribeStatus;
 
 
 

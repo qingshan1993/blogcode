@@ -52,6 +52,7 @@ public class DataCollectTask {
      * 基金业绩数据获取,增量数据获取
      */
     public void collectRecentFunPerformanceData() {
+        //查询
         //
 
     }

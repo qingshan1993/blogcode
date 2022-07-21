@@ -2,7 +2,9 @@ package com.jjq.funda.db.repo;
 
 import com.jjq.funda.db.entity.FunPerformance;
 import com.jjq.funda.db.entity.UserSubscribeFund;
+import com.jjq.funda.model.enums.DataState;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +22,9 @@ public interface UserSubscribeFundRepo extends JpaRepository<UserSubscribeFund, 
      * 获取用户已订阅的基金code
      * @return
      */
-    //List<String> listUserSubscribedFundCode();
+    @Query(value = "select distinct(fund_code) from user_subscribe_fund " +
+            "where subscribe_status='VALID'", nativeQuery = true)
+    List<String> listUserSubscribedFundCode();
 
 
 }
