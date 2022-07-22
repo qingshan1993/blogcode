@@ -1,13 +1,15 @@
 package com.jjq.funda.task;
 
-import com.jjq.funda.db.entity.FundComponent;
 import com.jjq.funda.db.repo.FundComponentRepo;
 import com.jjq.funda.db.repo.FundPerformanceRepo;
 import com.jjq.funda.db.repo.FundRepo;
 import com.jjq.funda.db.repo.UserSubscribeFundRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author qingshan1993
@@ -52,7 +54,12 @@ public class DataCollectTask {
      * 基金业绩数据获取,增量数据获取
      */
     public void collectRecentFunPerformanceData() {
-        //查询
+        //查询用户已订阅的基金编码
+        List<String> fundCodeList = userSubscribeFundRepo.listUserSubscribedFundCode();
+        if (CollectionUtils.isEmpty(fundCodeList)) {
+            log.info("用户已订阅的基金列表为空,无需收集基金业绩数据,直接返回.");
+            return;
+        }
         //
 
     }

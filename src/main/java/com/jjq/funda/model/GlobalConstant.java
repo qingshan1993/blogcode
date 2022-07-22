@@ -9,6 +9,12 @@ package com.jjq.funda.model;
 public interface GlobalConstant {
 
 
+    /**
+     * 分页请求的每页的size
+     */
+    int REQUEST_PAGE_SIZE_20 = 20;
+
+
     interface TtjjUrl {
         /**
          * 全部的基金列表
