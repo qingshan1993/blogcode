@@ -1,13 +1,9 @@
 package com.jjq.funda.support;
 
-import com.jjq.funda.util.JsonUtils;
 import com.jjq.funda.util.MapUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -18,7 +14,7 @@ import java.util.Map;
  * @author jjq
  * @version 1.0
  * @date 2021/11/6
- * @desc
+ * @desc TODO: 不同的http客户端使用@Bean的方式注入,不用新建类
  */
 public abstract class AbstractHttpClient {
 

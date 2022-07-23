@@ -53,7 +53,15 @@ public interface GlobalConstant {
 
         String TEST = "test_msg_type";
 
+        /**
+         * 基金业绩数据
+         */
         String COLLECT_FUND_PERFORMANCE = "collect_fund_performance";
+
+        /**
+         * 节假日信息数据
+         */
+        String CHINA_HOLIDAY_DATA = "china_holiday_data";
 
 
     }

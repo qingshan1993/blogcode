@@ -5,6 +5,7 @@ import com.jjq.funda.util.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Random;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +26,7 @@ public class DataCollectDelayQueue implements DataCollectQueue<DataCollectParam>
      * @param param
      */
     public void put(DataCollectParam param) {
-        throw new UnsupportedOperationException("DataCollectDelayQueue only support delay task.");
+        put(param, 1 + new Random().nextInt(25), TimeUnit.MINUTES);
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author qingshan1993
@@ -30,4 +31,5 @@ public class FundPerformanceRepoTest extends FundaApplicationTests {
         LocalDate maxFundDateByFundCode = fundPerformanceRepo.findMaxFundDateByFundCode("003096");
         log.info(":::::::::result:{}", maxFundDateByFundCode);
     }
+
 }
