@@ -44,7 +44,6 @@ public class TtjjApiDataCollector implements ApiDataCollector {
     public static DecimalFormat DF = new DecimalFormat("##.##%");
     public static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-
     @Autowired
     private TtjjHttpClient ttjjHttpClient;
 

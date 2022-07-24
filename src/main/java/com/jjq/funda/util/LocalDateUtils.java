@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.LongStream;
 
 /**
@@ -31,12 +29,10 @@ public class LocalDateUtils {
         if (endInclude.isBefore(startInclude)) {
             throw new IllegalArgumentException("endInclude can not isBefore startInclude.");
         }
-
-        long diffDays = endInclude.toEpochDay() - startInclude.toEpochDay();
-        return (int) LongStream.rangeClosed(0, diffDays).filter(x -> {
-            DayOfWeek dayOfWeek = startInclude.plusDays(x).getDayOfWeek();
-            return !dayOfWeek.equals(DayOfWeek.SATURDAY) && !dayOfWeek.equals(DayOfWeek.SUNDAY);
-        }).count();
+        return (int) LongStream.rangeClosed(0, endInclude.toEpochDay() - startInclude.toEpochDay())
+                .filter(x -> {DayOfWeek dayOfWeek = startInclude.plusDays(x).getDayOfWeek();
+                    return !dayOfWeek.equals(DayOfWeek.SATURDAY) && !dayOfWeek.equals(DayOfWeek.SUNDAY);
+                }).count();
     }
 
 }
