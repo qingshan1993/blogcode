@@ -95,15 +95,22 @@ public class TtjjApiDataCollector implements ApiDataCollector {
         collectFunPerformance(param, false);
     }
 
+    /**
+     * 监听队列消息,收集基金业绩数据
+     * @param collectParam
+     */
     @QueueListener(msgType = GlobalConstant.QueueMsgType.COLLECT_FUND_PERFORMANCE)
     public void collectFundComponentFromQueueTask(DataCollectParam collectParam) {
-        log.info("开始执行基金数据收集,collectParam:{}, 当前时间:{}", JsonUtils.toJsonString(collectParam), dateTimeFormatter.format(LocalDateTime.now()));
         collectFunPerformance(collectParam, true);
     }
 
+    /**
+     * 收集数据
+     * @param param
+     * @param fromQueue
+     */
     public void collectFunPerformance(DataCollectParam param, boolean fromQueue) {
         String url = String.format(GlobalConstant.TtjjUrl.FUND_PERFORMANCE_URL, param.getFundCode(), param.getCurrent(), param.getPageSize());
-        log.info("collectFunPerformance, url:{}", url);
         String strResult = ttjjHttpClient.get(url, String.class);
         String jsStr = strResult.replace("\"\n", "\"")
                 .replace("\t","@").replace("\n","@@").replace("@@@","@@");
