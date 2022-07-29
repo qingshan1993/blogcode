@@ -56,7 +56,6 @@ public class AccessLog {
     public String url;
 
 
-
     /**
      * 请求参数
      */
