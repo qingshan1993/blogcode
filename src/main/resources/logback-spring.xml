@@ -3,7 +3,7 @@
     <!--定义日志文件的存储地址，后面通过${LOG_HOME}获取，勿在 LogBack 的配置中使用相对路径，存在疑问？ 我这里使用相对地址就是当前目录下 -->
     <property name="LOG_HOME" value="/logs" />
     <!-- 可选：定义文件名称 -->
-    <property name="PROJECT_NAME" value="funda" />
+    <property name="PROJECT_NAME" value="qingshan1993" />
     <!-- appender 必选节点。作用：日志输出目的地， 配置后由 root 标签进行选择控制是否输出到目的地 -->
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
