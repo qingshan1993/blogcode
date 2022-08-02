@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jjq</groupId>
-	<artifactId>qingshan1993</artifactId>
+	<artifactId>blogcode</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>qingshan1993</name>
+	<name>blogcode</name>
 	<description>qingshan1993.github.io博客的配套代码</description>
 	<properties>
 		<java.version>1.8</java.version>

@@ -1,4 +1,4 @@
-package com.jjq.qingshan1993.concurrent;
+package com.jjq.blogcode.concurrent;
 
 import org.junit.jupiter.api.Test;
 
