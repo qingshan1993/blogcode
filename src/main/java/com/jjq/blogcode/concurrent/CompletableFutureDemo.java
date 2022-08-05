@@ -72,6 +72,26 @@ public class CompletableFutureDemo {
                 .thenRunAsync(() -> IntStream.range(10, 20).forEach(System.out::println));
     }
 
+    @Test
+    public void test6() {
+        CompletableFuture
+                .completedFuture(null)
+                .thenRun(() -> System.out.println("thenRun 1:" + Thread.currentThread().getName()))
+                .thenRun(() -> System.out.println("thenRun 2:" + Thread.currentThread().getName()));
+//        thenRun 1:main
+//        thenRun 2:main
+    }
+
+    @Test
+    public void test7() {
+
+        CompletableFuture
+                .completedFuture(null)
+                .thenRunAsync(() -> System.out.println("thenRunAsync 1:" + Thread.currentThread().getName()))
+                .thenRunAsync(() -> System.out.println("thenRunAsync 2:" + Thread.currentThread().getName()));
+        //thenRunAsync 1:ForkJoinPool.commonPool-worker-9
+        //thenRunAsync 2:ForkJoinPool.commonPool-worker-9
+    }
 
 
 
