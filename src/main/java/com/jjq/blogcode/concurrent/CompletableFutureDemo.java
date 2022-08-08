@@ -93,6 +93,24 @@ public class CompletableFutureDemo {
         //thenRunAsync 2:ForkJoinPool.commonPool-worker-9
     }
 
+    @Test
+    public void test8() {
+        final String name = "qingshan1993";
+        CompletableFuture
+                .supplyAsync(() -> "Hello, ")
+                .thenApply(x -> { return x + name + ", ";})
+                .thenApply(x -> {
+                    if (x.contains("qingshan1993")) {
+                        return x + "welcome to study";
+                    } else {
+                        throw new IllegalArgumentException(" must contains 'qingshan1993'");
+                    }})
+                .exceptionally(ex-> "ERROR!")
+                .thenAccept(x -> System.out.println(x +" CompletableFuture"));
+        //name=qingshan1993, result = Hello, qingshan1993, welcome to study CompletableFuture
+        //name=qingshan, result = ERROR! CompletableFuture
+    }
+
 
 
 
