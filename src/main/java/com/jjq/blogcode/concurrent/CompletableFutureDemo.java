@@ -94,8 +94,8 @@ public class CompletableFutureDemo {
     }
 
     @Test
-    public void test8() {
-        final String name = "qingshan1993";
+    public void test8() throws InterruptedException {
+        final String name = "qingshan193";
         CompletableFuture
                 .supplyAsync(() -> "Hello, ")
                 .thenApply(x -> { return x + name + ", ";})
@@ -105,10 +105,22 @@ public class CompletableFutureDemo {
                     } else {
                         throw new IllegalArgumentException(" must contains 'qingshan1993'");
                     }})
-                .exceptionally(ex-> "ERROR!")
+                //.exceptionally(ex-> "ERROR!")
                 .thenAccept(x -> System.out.println(x +" CompletableFuture"));
         //name=qingshan1993, result = Hello, qingshan1993, welcome to study CompletableFuture
         //name=qingshan, result = ERROR! CompletableFuture
+    }
+
+    @Test
+    public void test9() throws InterruptedException {
+        //thenCombine
+
+    }
+
+    @Test
+    public void test10() throws InterruptedException {
+        //
+
     }
 
 
